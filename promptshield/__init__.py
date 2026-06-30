@@ -24,27 +24,7 @@ Legacy API (Deprecated):
 import logging
 import warnings
 
-# --- DEPRECATION WARNING ---
-warnings.warn(
-    "\n"
-    "===============================================================================\n"
-    "DEPRECATION WARNING:\n"
-    "The 'promptshields' package is officially deprecated and has been sunset.\n"
-    "The project has evolved into a full secure-by-default execution framework named 'openclay'.\n"
-    "All future security updates, engines, and features will only occur in OpenClay.\n"
-    "\n"
-    "Migration is simple. Please run:\n"
-    "    pip install openclay\n"
-    "\n"
-    "And update your imports from `promptshield` to `openclay.shields`.\n"
-    "Visit https://github.com/openclay/openclay for documentation.\n"
-    "===============================================================================\n",
-    DeprecationWarning,
-    stacklevel=2,
-)
-# ---------------------------
-
-__version__ = "3.0.1"
+__version__ = "3.1.0"
 
 # New configurable Shield (recommended)
 from .shields import Shield, register_component, ShieldComponent

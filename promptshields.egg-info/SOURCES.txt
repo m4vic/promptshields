@@ -1,6 +1,7 @@
 MANIFEST.in
 README.md
 pyproject.toml
+setup.cfg
 setup.py
 promptshield/__init__.py
 promptshield/config.py
@@ -71,3 +72,4 @@ promptshields.egg-info/dependency_links.txt
 promptshields.egg-info/entry_points.txt
 promptshields.egg-info/requires.txt
 promptshields.egg-info/top_level.txt
+tests/test_shields.py
