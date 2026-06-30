@@ -1,0 +1,152 @@
+# __init__.py
+"""
+PromptShield: Universal AI Security Framework
+
+New Configurable Shield API (v2.0):
+    from promptshield import Shield
+    
+    # Use presets
+    shield = Shield.fast()       # Pattern-only
+    shield = Shield.balanced()   # Production default
+    shield = Shield.secure()     # Full protection
+    
+    # Or customize
+    shield = Shield(
+        patterns=True,
+        canary=True,
+        rate_limiting=True,
+        pii_detection=True
+    )
+
+Legacy API (Deprecated):
+    from promptshield.shields import InputShield_L5  # Deprecated
+"""
+import logging
+import warnings
+
+# --- DEPRECATION WARNING ---
+warnings.warn(
+    "\n"
+    "===============================================================================\n"
+    "DEPRECATION WARNING:\n"
+    "The 'promptshields' package is officially deprecated and has been sunset.\n"
+    "The project has evolved into a full secure-by-default execution framework named 'openclay'.\n"
+    "All future security updates, engines, and features will only occur in OpenClay.\n"
+    "\n"
+    "Migration is simple. Please run:\n"
+    "    pip install openclay\n"
+    "\n"
+    "And update your imports from `promptshield` to `openclay.shields`.\n"
+    "Visit https://github.com/openclay/openclay for documentation.\n"
+    "===============================================================================\n",
+    DeprecationWarning,
+    stacklevel=2,
+)
+# ---------------------------
+
+__version__ = "3.0.1"
+
+# New configurable Shield (recommended)
+from .shields import Shield, register_component, ShieldComponent
+from .shields_async import AsyncShield
+from .exceptions import StreamBlockedError, PromptShieldError
+
+
+
+# Legacy shields (deprecated but supported)
+from .shields import InputShield_L5, OutputShield_L5, AgentShield_L3
+
+# Core utilities
+from .methods import (
+    sanitize_text,
+    pattern_match,
+    complexity_score,
+    generate_canary,
+    inject_canary,
+    detect_canary,
+    pii_scan,
+    load_attack_patterns,
+)
+
+# Security components
+from .security import (
+    SecureModelManager,
+    sign_model,
+    verify_and_load_model,
+    CryptoCanaryGenerator,
+    verify_canary_leak,
+)
+
+# Advanced components
+from .pattern_manager import PatternManager
+from .rate_limiting import AdaptiveRateLimiter
+from .session_anomaly import SessionAnomalyDetector
+from .output_engine import OutputEngine
+from .output_filter import OutputFilter
+
+# PII detection
+from .pii import (
+    ContextualPIIDetector,
+    PIIContext,
+    RedactionMode,
+    redact_pii,
+    smart_redact,
+)
+
+# Training validation
+from .training import DatasetValidator
+
+# Testing
+from .testing import PromptShieldEvasionTester
+
+# Telemetry
+from .telemetry import PromptShieldTelemetry, trace_shield_call, telemetry
+
+__all__ = [
+    # Main Shield API (v2.0)
+    "Shield",
+    "AsyncShield",
+    "register_component",
+    "ShieldComponent",
+    
+    # Legacy shields (deprecated)
+    "InputShield_L5",
+    "OutputShield_L5",
+    "AgentShield_L3",
+    
+    # Utilities
+    "sanitize_text",
+    "pattern_match",
+    "complexity_score",
+    "generate_canary",
+    "inject_canary",
+    "detect_canary",
+    "pii_scan",
+    "load_attack_patterns",
+    
+    # Security
+    "SecureModelManager",
+    "sign_model",
+    "verify_and_load_model",
+    "CryptoCanaryGenerator",
+    "verify_canary_leak",
+    
+    # Components
+    "PatternManager",
+    "AdaptiveRateLimiter",
+    "SessionAnomalyDetector",
+    "OutputEngine",
+    "OutputFilter",
+    "ContextualPIIDetector",
+    "PIIContext",
+    "RedactionMode",
+    "redact_pii",
+    "smart_redact",
+    "DatasetValidator",
+    "PromptShieldEvasionTester",
+    
+    # Observability
+    "PromptShieldTelemetry",
+    "trace_shield_call",
+    "telemetry",
+]

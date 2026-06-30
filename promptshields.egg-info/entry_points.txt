@@ -1,0 +1,4 @@
+[console_scripts]
+promptshield-keygen = promptshield.scripts.generate_keys:main
+promptshield-sign = promptshield.scripts.sign_models:main
+promptshield-test = promptshield.scripts.run_evasion_tests:main
