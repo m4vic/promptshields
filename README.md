@@ -1,6 +1,6 @@
 
 
-# PromptShield
+# PromptShields
 
 **Secure AI Applications in 3 Lines of Code**
 
