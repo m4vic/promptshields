@@ -19,6 +19,25 @@ An enterprise-grade, bidirectional LLM security framework. Defend against prompt
 pip install promptshields
 ```
 
+### Optional extras
+
+Core install covers pattern matching, session tracking, canary tokens, and the
+pre-trained ML ensemble. Some features need extra dependencies:
+
+```bash
+# Output DLP engine (Bloom filters, Aho-Corasick, semantic similarity)
+pip install "promptshields[output]"
+
+# Semantic/embedding-based matching (sentence-transformers)
+pip install "promptshields[ml]"
+
+# Framework integrations (LangChain, LiteLLM, LlamaIndex, CrewAI)
+pip install "promptshields[integrations]"
+
+# Everything
+pip install "promptshields[all]"
+```
+
 ## Quick Start
 
 ```python
@@ -42,7 +61,7 @@ if result['blocked']:
 | **Cost** | Free | Free | $$$$ |
 | **Privacy** | 100% Local | Local | Cloud |
 | **F1 Score** | 0.97 (RF) / 0.96 (DeBERTa) | ~0.60 | ~0.95 |
-| **ML Models** | 4 + DeBERTa | None | Black box |
+| **ML Models** | 3 + DeBERTa | None | Black box |
 | **Async** | Native | DIY | Varies |
 
 ### Protection Scope
@@ -63,7 +82,7 @@ Choose the right tier for your application latency requirements:
 Shield.fast()       # ~1ms  - High throughput (pattern matching only)
 Shield.balanced()   # ~2ms  - Production default (patterns + session tracking)
 Shield.strict()     # ~7ms  - Sensitive apps (+ 1 ML model + PII detection)
-Shield.secure()     # ~12ms - Maximum security (4 ML models ensemble)
+Shield.secure()     # ~12ms - Maximum security (3 ML models ensemble)
 ```
 
 --------------------------------------------------------------------------------
@@ -143,7 +162,7 @@ Pre-trained models available on Hugging Face:
 
 ## Documentation
 
-Full API reference, guides, and integration details are available at the **[PromptShield Documentation Portal](https://doc.neuralchemy.in)**.
+Full API reference, guides, and integration details are available in the **[GitHub repository](https://github.com/m4vic/promptshields)**.
 
 --------------------------------------------------------------------------------
 
@@ -151,4 +170,4 @@ Full API reference, guides, and integration details are available at the **[Prom
 
 MIT License — see [LICENSE](LICENSE)
 
-**Built by [NeurAlchemy](https://github.com/Neural-alchemy)** — AI Security and LLM Safety Research
+**Built by [Sanskar Jajoo / NeurAlchemy](https://github.com/m4vic)** — AI Security and LLM Safety Research

@@ -642,9 +642,10 @@ class Shield:
             "pii_redaction": "smart",
             "verify_models": False,
         }
-        # Full ML ensemble: Random Forest + LR + LinearSVC + Gradient Boosting
+        # ML ensemble: Random Forest + LR + LinearSVC
+        # (gradient_boosting dropped in 3.2.0 — pickle incompatible with current numpy; retrain pending)
         if "models" not in kwargs:
-            defaults["models"] = ["random_forest", "logistic_regression", "linear_svc", "gradient_boosting"]
+            defaults["models"] = ["random_forest", "logistic_regression", "linear_svc"]
         
         defaults.update(kwargs)
         return cls(**defaults)
@@ -1213,80 +1214,32 @@ class Shield:
     # ============================================
     
     @classmethod
-    def fast(cls, **overrides):
-        """
-        Fast preset: Pattern-only, <0.5ms
-        
-        Best for: High-throughput APIs, agent-to-agent
-        """
-        return cls(
-            patterns=True,
-            models=None,
-            canary=False,
-            rate_limiting=False,
-            session_tracking=False,
-            pii_detection=False,
-            **overrides
-        )
-    
-    @classmethod
-    def balanced(cls, **overrides):
-        """
-        Balanced preset: Patterns + canary, ~1ms
-        
-        Best for: Most production use cases
-        """
-        return cls(
-            patterns=True,
-            models=None,  # Can add XGBoost later
-            canary=True,
-            canary_mode="crypto",
-            rate_limiting=False,
-            session_tracking=False,
-            pii_detection=False,
-            **overrides
-        )
-    
-    @classmethod
-    def secure(cls, **overrides):
-        """
-        Secure preset: Full protection, ~5ms
-        
-        Best for: High-value data, compliance requirements
-        """
-        return cls(
-            patterns=True,
-            models=None,  # Can add ML models
-            canary=True,
-            canary_mode="crypto",
-            rate_limiting=True,
-            session_tracking=True,
-            pii_detection=True,
-            pii_redaction="smart",
-            **overrides
-        )
-    
-    @classmethod
     def paranoid(cls, **overrides):
         """
-        Paranoid preset: Everything enabled, ~10ms
-        
+        Paranoid preset: Everything enabled, ~15ms
+
         Best for: Maximum security, admin endpoints
+        Full ML ensemble + all protections + stricter rate limiting.
         """
-        return cls(
-            patterns=True,
-            models=["xgboost"],  # When available
-            canary=True,
-            canary_mode="crypto",
-            rate_limiting=True,
-            rate_limit_base=50,  # Stricter
-            session_tracking=True,
-            session_history=15,
-            pii_detection=True,
-            pii_redaction="mask",  # Most aggressive
-            verify_models=True,
-            **overrides
-        )
+        defaults = {
+            "patterns": True,
+            "canary": True,
+            "canary_mode": "crypto",
+            "rate_limiting": True,
+            "rate_limit_base": 50,  # Stricter
+            "session_tracking": True,
+            "session_history": 15,
+            "pii_detection": True,
+            "pii_redaction": "mask",  # Most aggressive
+            "verify_models": False,
+        }
+        # ML ensemble (same trained models as secure())
+        if "models" not in overrides:
+            defaults["models"] = [
+                "random_forest", "logistic_regression", "linear_svc",
+            ]
+        defaults.update(overrides)
+        return cls(**defaults)
     
     @classmethod
     def from_config(cls, config_path: str, **overrides):

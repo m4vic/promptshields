@@ -24,7 +24,7 @@ Legacy API (Deprecated):
 import logging
 import warnings
 
-__version__ = "3.1.0"
+__version__ = "3.2.0"
 
 # New configurable Shield (recommended)
 from .shields import Shield, register_component, ShieldComponent

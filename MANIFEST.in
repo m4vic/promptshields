@@ -1,2 +1,7 @@
 recursive-include promptshield/attack_db *.json
-recursive-include promptshield/models *.pkl
+include promptshield/models/tfidf_core.pkl
+include promptshield/models/rf_core.pkl
+include promptshield/models/logistic_regression.pkl
+include promptshield/models/linear_svc.pkl
+include LICENSE
+include CHANGELOG.md
