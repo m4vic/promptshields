@@ -9,7 +9,7 @@
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Downloads](https://pepy.tech/badge/promptshields)](https://pepy.tech/project/promptshields)
 
-An enterprise-grade, bidirectional LLM security framework. Defend against prompt injection, jailbreaks, data leakage, and PII exposure in production applications.
+bidirectional LLM security framework. Defend against prompt injection, jailbreaks, data leakage, and PII exposure in production applications.
 
 --------------------------------------------------------------------------------
 
